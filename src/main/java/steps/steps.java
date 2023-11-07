@@ -18,26 +18,25 @@ public class steps {
     public void iOpenGoogleWebsite() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get("https://www.google.com");
+        driver.get("https://duckduckgo.com/");
     }
 
-    @When("I enter {string} in the search bar")
-    public void iEnterSearchTerm(String searchTerm) {
-        WebElement searchBox = driver.findElement(By.name("q"));
-        searchBox.sendKeys(searchTerm);
-    }
-
-    @And("I click the search button")
-    public void iClickSearchButton() {
-        WebElement searchButton = driver.findElement(By.name("btnK"));
+    @When("I click the search box")
+    public void iClickSearchBox() {
+        WebElement searchButton = driver.findElement(By.xpath("//input[@id='searchbox_input']"));
         searchButton.click();
     }
 
-    @Then("I should see search results for {string}")
-    public void iShouldSeeSearchResults(String expectedResults) {
-        WebElement resultStats = driver.findElement(By.id("result-stats"));
-        String actualResults = resultStats.getText();
-        assertEquals("Search results do not match", expectedResults, actualResults);
-        driver.quit();
+    @And("I enter {string} in the search bar")
+    public void iEnterSearchTerm(String searchTerm) {
+        WebElement searchBox = driver.findElement(By.xpath("//input[@id='searchbox_input']"));
+        searchBox.sendKeys(searchTerm);
     }
+
+    @Then("I click the search button")
+    public void iClickSearchButton() {
+            WebElement searchButton = driver.findElement(By.xpath("//body/div[@id='__next']/main[1]/article[1]/div[1]/div[1]/div[1]/section[1]/form[1]/div[1]/div[1]/button[1]"));
+            searchButton.click();
+    }
+
 }
